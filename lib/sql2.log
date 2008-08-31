@@ -1,0 +1,497 @@
+Processing BidsController#confirm (for 127.0.0.1 at 2008-08-29 19:25:33) [GET]
+  Session ID: fcaf1c09200ac388993dc454b777ef7d
+  Parameters: {"commit"=>"Place Bid Now", "action"=>"confirm", "bid"=>{"number_of_lots"=>"1", "max_price_vatted"=>"11", "auction_id"=>"223"}, "controller"=>"bids"}
+  [4;35;1mPerson Columns (0.001305)[0m   [0mSHOW FIELDS FROM `people`[0m
+  [4;36;1mPerson Load (0.000095)[0m   [0;1mSELECT * FROM `people` WHERE (`people`.`id` = 22) LIMIT 1[0m
+  [4;35;1mBid Columns (0.000819)[0m   [0mSHOW FIELDS FROM `bids`[0m
+  [4;36;1mAuction Columns (0.001146)[0m   [0;1mSHOW FIELDS FROM `auctions`[0m
+  [4;35;1mAuction Load (0.000089)[0m   [0mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+  [4;36;1mDetailedAuction Columns (0.001470)[0m   [0;1mSHOW FIELDS FROM `detailed_auctions`[0m
+  [4;35;1mDetailedAuction Load (0.000097)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+  [4;35;1mAuction Load (0.000246)[0m   [0mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) FOR UPDATE[0m
+  [4;36;1mBid Load (0.000091)[0m   [0;1mSELECT * FROM `bids` WHERE (`bids`.`bidder_id` = 22 AND `bids`.`overwritten` = 0 AND `bids`.`auction_id` = 223) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering bids/confirm
+  [4;35;1mLot Load (0.000142)[0m   [0mSELECT * FROM `lots` WHERE (`lots`.auction_id = 223) LIMIT 1[0m
+  [4;36;1mLot Columns (0.001341)[0m   [0;1mSHOW FIELDS FROM `lots`[0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;36;1mPerson Load (0.000101)[0m   [0;1mSELECT * FROM `people` WHERE (`people`.`id` = 11) [0m
+Rendered layouts/_menu (0.00081)
+Completed in 0.08805 (11 reqs/sec) | Rendering: 0.01783 (20%) | DB: 0.00721 (8%) | 200 OK [http://localhost/bids/confirm?bid%5Bmax_price_vatted%5D=11&bid%5Bnumber_of_lots%5D=1&bid%5Bauction_id%5D=223&commit=Place+Bid+Now]
+
+
+Processing BidsController#create (for 127.0.0.1 at 2008-08-29 19:25:35) [POST]
+  Session ID: fcaf1c09200ac388993dc454b777ef7d
+  Parameters: {"commit"=>"Yes, Place Bid", "authenticity_token"=>"92825f7e0719adc8ae43f8c6c75127aed0a11370", "action"=>"create", "bid"=>{"number_of_lots"=>"1", "max_price"=>"11.0", "auction_id"=>"223"}, "controller"=>"bids"}
+  [4;35;1mPerson Columns (0.001284)[0m   [0mSHOW FIELDS FROM `people`[0m
+  [4;36;1mPerson Load (0.000076)[0m   [0;1mSELECT * FROM `people` WHERE (`people`.`id` = 22) LIMIT 1[0m
+  [4;35;1mBid Columns (0.000820)[0m   [0mSHOW FIELDS FROM `bids`[0m
+  [4;36;1mAuction Columns (0.001147)[0m   [0;1mSHOW FIELDS FROM `auctions`[0m
+  [4;35;1mAuction Load (0.000073)[0m   [0mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+  [4;36;1mSQL (0.000043)[0m   [0;1mBEGIN[0m
+  [4;35;1mAuction Load (0.000211)[0m   [0mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) FOR UPDATE[0m
+  [4;36;1mBid Load (0.000069)[0m   [0;1mSELECT * FROM `bids` WHERE (`bids`.`bidder_id` = 22 AND `bids`.`overwritten` = 0 AND `bids`.`auction_id` = 223) LIMIT 1[0m
+  [4;35;1mBid Update (0.000168)[0m   [0mUPDATE `bids` SET overwritten = TRUE WHERE (`bids`.`bidder_id` = 22 AND `bids`.`auction_id` = 223) [0m
+  [4;36;1mBid Create (0.000224)[0m   [0;1mINSERT INTO `bids` (`created_at`, `number_of_lots`, `current_price`, `overwritten`, `current_number_of_lots`, `max_price`, `auction_id`, `bidder_id`) VALUES('2008-08-29 19:25:35', 1, NULL, 0, NULL, '11.0', 223, 22)[0m
+  [4;35;1mBid Load (0.000223)[0m   [0mSELECT * FROM `bids` WHERE (`bids`.auction_id = 223 AND (`bids`.`overwritten` = 0)) ORDER BY max_price DESC, created_at ASC, id[0m
+  [4;36;1mBid Update (0.000145)[0m   [0;1mUPDATE `bids` SET `current_number_of_lots` = 0 WHERE `id` = 20[0m
+  [4;35;1mAuction Update (0.000203)[0m   [0mUPDATE `auctions` SET `current_number_of_sold_lots` = 0, `current_min_price` = '10.0' WHERE `id` = 223[0m
+  [4;36;1mSQL (0.009718)[0m   [0;1mCOMMIT[0m
+Redirected to http://localhost:3000/auctions/show/223
+Completed in 0.06955 (14 reqs/sec) | DB: 0.01465 (21%) | 302 Found [http://localhost/bids/create]
+
+
+Processing AuctionsController#show (for 127.0.0.1 at 2008-08-29 19:25:35) [GET]
+  Session ID: fcaf1c09200ac388993dc454b777ef7d
+  Parameters: {"action"=>"show", "id"=>"223", "controller"=>"auctions"}
+  [4;35;1mPerson Columns (0.001326)[0m   [0mSHOW FIELDS FROM `people`[0m
+  [4;36;1mPerson Load (0.000079)[0m   [0;1mSELECT * FROM `people` WHERE (`people`.`id` = 22) LIMIT 1[0m
+  [4;35;1mAuction Columns (0.001215)[0m   [0mSHOW FIELDS FROM `auctions`[0m
+  [4;36;1mAuction Load (0.000239)[0m   [0;1mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+  [4;35;1mBid Load (0.000333)[0m   [0mSELECT * FROM `bids` WHERE (`bids`.`bidder_id` = 22 AND `bids`.`overwritten` = 0 AND `bids`.`auction_id` = 223) LIMIT 1[0m
+  [4;36;1mSale Columns (0.000860)[0m   [0;1mSHOW FIELDS FROM `sales`[0m
+WARNING: Can't mass-assign these protected attributes: is_buy_now
+  [4;35;1mBid Columns (0.000659)[0m   [0mSHOW FIELDS FROM `bids`[0m
+Rendering template within layouts/application
+Rendering auctions/show
+  [4;36;1mLot Load (0.000114)[0m   [0;1mSELECT * FROM `lots` WHERE (`lots`.auction_id = 223) LIMIT 1[0m
+  [4;35;1mLot Columns (0.001344)[0m   [0mSHOW FIELDS FROM `lots`[0m
+  [4;36;1mDetailedAuction Columns (0.001619)[0m   [0;1mSHOW FIELDS FROM `detailed_auctions`[0m
+  [4;35;1mDetailedAuction Load (0.000537)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;36;1mPerson Load (0.000078)[0m   [0;1mSELECT * FROM `people` WHERE (`people`.`id` = 11) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;35;1mSQL (0.000227)[0m   [0mSELECT count(*) AS count_all FROM `bids` WHERE (`bids`.auction_id = 223) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+Rendered auctions/_show_buy_now_and_auction (0.02647)
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+Rendered auctions/_user_is_losing (0.00198)
+  [4;35;1mPhoto Columns (0.000900)[0m   [0mSHOW FIELDS FROM `photos`[0m
+  [4;36;1mSQL (0.000052)[0m   [0;1mSELECT count(*) AS count_all FROM `photos` WHERE (`photos`.lot_id = 261) [0m
+Rendered auctions/_view_photos (0.00990)
+  [4;35;1mFeedback Columns (0.000659)[0m   [0mSHOW FIELDS FROM `feedbacks`[0m
+  [4;36;1mSQL (0.000053)[0m   [0;1mSELECT count(*) AS count_all FROM `feedbacks` WHERE (`feedbacks`.`assessed_person_id` = 11) [0m
+  [4;35;1mWineType Columns (0.000477)[0m   [0mSHOW FIELDS FROM `wine_types`[0m
+  [4;36;1mWineType Load (0.000052)[0m   [0;1mSELECT * FROM `wine_types` WHERE (`wine_types`.`id` = 1) [0m
+  [4;35;1mRegion Columns (0.000548)[0m   [0mSHOW FIELDS FROM `regions`[0m
+  [4;36;1mRegion Load (0.000058)[0m   [0;1mSELECT * FROM `regions` WHERE (`regions`.`id` = 403) [0m
+  [4;35;1mJoin Table Columns (0.000495)[0m   [0mSHOW FIELDS FROM `grape_varieties_lots`[0m
+  [4;36;1mGrapeVariety Load (0.000054)[0m   [0;1mSELECT * FROM `grape_varieties` INNER JOIN `grape_varieties_lots` ON `grape_varieties`.id = `grape_varieties_lots`.grape_variety_id WHERE (`grape_varieties_lots`.lot_id = 261 ) [0m
+  [4;35;1mAddress Columns (0.000783)[0m   [0mSHOW FIELDS FROM `addresses`[0m
+  [4;36;1mAddress Load (0.000064)[0m   [0;1mSELECT * FROM `addresses` WHERE (`addresses`.`id` = 4) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `people` WHERE (`people`.`id` = 11) [0m
+  [4;35;1mFeatureAuction Columns (0.000920)[0m   [0mSHOW FIELDS FROM `feature_auctions`[0m
+  [4;36;1mSQL (0.000056)[0m   [0;1mSELECT count(*) AS count_all FROM `feature_auctions` WHERE (`feature_auctions`.`status` = 3) [0m
+  [4;35;1mFeatureAuction Load (0.000068)[0m   [0mSELECT * FROM `feature_auctions` WHERE (`feature_auctions`.`status` = 3) [0m
+Rendered layouts/_menu (0.07331)
+Completed in 0.27967 (3 reqs/sec) | Rendering: 0.15085 (53%) | DB: 0.01452 (5%) | 200 OK [http://localhost/auctions/show/223]
+
+
+Processing AccountController#logout (for 127.0.0.1 at 2008-08-29 19:25:42) [GET]
+  Session ID: fcaf1c09200ac388993dc454b777ef7d
+  Parameters: {"action"=>"logout", "controller"=>"account"}
+  [4;36;1mPerson Columns (0.001257)[0m   [0;1mSHOW FIELDS FROM `people`[0m
+  [4;35;1mPerson Load (0.000075)[0m   [0mSELECT * FROM `people` WHERE (`people`.`id` = 22) LIMIT 1[0m
+  [4;36;1mSQL (0.000072)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000043)[0m   [0mCOMMIT[0m
+Cookie set: auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT
+Redirected to http://localhost:3000/auctions
+Completed in 0.02726 (36 reqs/sec) | DB: 0.00276 (10%) | 302 Found [http://localhost/account/logout]
+
+
+Processing AuctionsController#index (for 127.0.0.1 at 2008-08-29 19:25:42) [GET]
+  Session ID: 30c5f359daa4d9bea3553f1758388ace
+  Parameters: {"action"=>"index", "controller"=>"auctions"}
+  [4;36;1mDetailedAuction Load (0.001924)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (status = 3 AND closing_time > '2008-08-29 19:25:42' AND detailed_auctions.number_of_lots > 0) LIMIT 0, 10[0m
+Rendering template within layouts/application
+Rendering auctions/index
+  [4;35;1mDetailedAuction Columns (0.001595)[0m   [0mSHOW FIELDS FROM `detailed_auctions`[0m
+  [4;36;1mSQL (0.001520)[0m   [0;1mSELECT count(*) AS count_all, country_id AS country_id FROM `detailed_auctions` WHERE (status = 3 AND closing_time > '2008-08-29 19:25:42' AND detailed_auctions.number_of_lots > 0) GROUP BY country_id [0m
+  [4;35;1mRegion Columns (0.000481)[0m   [0mSHOW FIELDS FROM `regions`[0m
+  [4;36;1mRegion Load (0.000059)[0m   [0;1mSELECT * FROM `regions` WHERE (`regions`.`id` IN (1,208,403)) [0m
+  [4;35;1mSQL (0.001537)[0m   [0mSELECT count(*) AS count_all, wine_type_id AS wine_type_id FROM `detailed_auctions` WHERE (status = 3 AND closing_time > '2008-08-29 19:25:42' AND detailed_auctions.number_of_lots > 0) GROUP BY wine_type_id [0m
+  [4;36;1mWineType Columns (0.000463)[0m   [0;1mSHOW FIELDS FROM `wine_types`[0m
+  [4;35;1mWineType Load (0.000052)[0m   [0mSELECT * FROM `wine_types` WHERE (`wine_types`.`id` IN (1,2)) [0m
+  [4;36;1mDetailedAuction Load (0.001712)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (status = 3 AND closing_time > '2008-08-29 19:25:42' AND detailed_auctions.number_of_lots > 0) [0m
+  [4;35;1mSQL (0.001538)[0m   [0mSELECT count(*) AS count_all, vintage AS vintage FROM `detailed_auctions` WHERE (status = 3 AND closing_time > '2008-08-29 19:25:42' AND detailed_auctions.number_of_lots > 0) GROUP BY vintage [0m
+Rendered auctions/_list_item_single_lot (0.00064)
+Rendered auctions/_list_item_single_lot (0.00048)
+  [4;36;1mPhoto Columns (0.000849)[0m   [0;1mSHOW FIELDS FROM `photos`[0m
+  [4;35;1mPhoto Load (0.000065)[0m   [0mSELECT * FROM `photos` WHERE (`photos`.`id` = 1) [0m
+Rendered auctions/_list_item_multi_lot_auction (0.00067)
+Rendered auctions/_list_item_single_lot (0.00050)
+Rendered auctions/_list_item_only_buy_now (0.00047)
+Rendered auctions/_list_item_single_lot (0.00047)
+Rendered auctions/_list_item_single_lot (0.00050)
+Rendered auctions/_list_item_single_lot (0.00049)
+Rendered auctions/_auction_list (0.03082)
+  [4;36;1mFeatureAuction Columns (0.000888)[0m   [0;1mSHOW FIELDS FROM `feature_auctions`[0m
+  [4;35;1mSQL (0.000057)[0m   [0mSELECT count(*) AS count_all FROM `feature_auctions` WHERE (`feature_auctions`.`status` = 3) [0m
+  [4;36;1mFeatureAuction Load (0.000068)[0m   [0;1mSELECT * FROM `feature_auctions` WHERE (`feature_auctions`.`status` = 3) [0m
+Rendered layouts/_menu (0.07435)
+Completed in 0.17667 (5 reqs/sec) | Rendering: 0.15153 (85%) | DB: 0.01339 (7%) | 200 OK [http://localhost/auctions]
+
+
+Processing AccountController#login (for 127.0.0.1 at 2008-08-29 19:25:44) [GET]
+  Session ID: 30c5f359daa4d9bea3553f1758388ace
+  Parameters: {"action"=>"login", "controller"=>"account"}
+Rendering template within layouts/application
+Rendering account/login
+Rendered layouts/_menu (0.00087)
+Completed in 0.00665 (150 reqs/sec) | Rendering: 0.00385 (57%) | DB: 0.00072 (10%) | 200 OK [http://localhost/account/login]
+
+
+Processing AccountController#login (for 127.0.0.1 at 2008-08-29 19:25:49) [POST]
+  Session ID: 30c5f359daa4d9bea3553f1758388ace
+  Parameters: {"commit"=>"Log in", "authenticity_token"=>"7b0abe5d82b3f05be11c9c9d4ca5c383f9b1a6da", "action"=>"login", "controller"=>"account", "password"=>"asdf", "login"=>"hasni"}
+  [4;35;1mPerson Columns (0.001256)[0m   [0mSHOW FIELDS FROM `people`[0m
+  [4;36;1mPerson Load (0.000289)[0m   [0;1mSELECT * FROM `people` WHERE (`people`.`login` = 'hasni') LIMIT 1[0m
+  [4;35;1mSQL (0.000061)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000278)[0m   [0;1mSELECT `login` FROM `people` WHERE (LOWER(`people`.login) = 'hasni' AND `people`.id <> 18) [0m
+  [4;35;1mSQL (0.000188)[0m   [0mSELECT `email` FROM `people` WHERE (LOWER(`people`.email) = 'hasni@eptcomputing.com' AND `people`.id <> 18) [0m
+  [4;36;1mPerson Update (0.000220)[0m   [0;1mUPDATE `people` SET `updated_at` = '2008-08-29 19:25:49', `logged_in_at` = '2008-08-29 19:25:49' WHERE `id` = 18[0m
+  [4;35;1mSQL (0.005853)[0m   [0mCOMMIT[0m
+Redirected to http://localhost:3000/auctions
+Completed in 0.03669 (27 reqs/sec) | DB: 0.00891 (24%) | 302 Found [http://localhost/account/login]
+
+
+Processing AuctionsController#index (for 127.0.0.1 at 2008-08-29 19:25:50) [GET]
+  Session ID: 30c5f359daa4d9bea3553f1758388ace
+  Parameters: {"action"=>"index", "controller"=>"auctions"}
+  [4;36;1mPerson Columns (0.001276)[0m   [0;1mSHOW FIELDS FROM `people`[0m
+  [4;35;1mPerson Load (0.000265)[0m   [0mSELECT * FROM `people` WHERE (`people`.`id` = 18) LIMIT 1[0m
+  [4;36;1mDetailedAuction Load (0.001902)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (status = 3 AND closing_time > '2008-08-29 19:25:50' AND detailed_auctions.number_of_lots > 0) LIMIT 0, 10[0m
+Rendering template within layouts/application
+Rendering auctions/index
+  [4;35;1mDetailedAuction Columns (0.001655)[0m   [0mSHOW FIELDS FROM `detailed_auctions`[0m
+  [4;36;1mSQL (0.001528)[0m   [0;1mSELECT count(*) AS count_all, country_id AS country_id FROM `detailed_auctions` WHERE (status = 3 AND closing_time > '2008-08-29 19:25:50' AND detailed_auctions.number_of_lots > 0) GROUP BY country_id [0m
+  [4;35;1mRegion Columns (0.000508)[0m   [0mSHOW FIELDS FROM `regions`[0m
+  [4;36;1mRegion Load (0.000082)[0m   [0;1mSELECT * FROM `regions` WHERE (`regions`.`id` IN (1,208,403)) [0m
+  [4;35;1mSQL (0.001560)[0m   [0mSELECT count(*) AS count_all, wine_type_id AS wine_type_id FROM `detailed_auctions` WHERE (status = 3 AND closing_time > '2008-08-29 19:25:50' AND detailed_auctions.number_of_lots > 0) GROUP BY wine_type_id [0m
+  [4;36;1mWineType Columns (0.000490)[0m   [0;1mSHOW FIELDS FROM `wine_types`[0m
+  [4;35;1mWineType Load (0.000069)[0m   [0mSELECT * FROM `wine_types` WHERE (`wine_types`.`id` IN (1,2)) [0m
+  [4;36;1mDetailedAuction Load (0.001721)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (status = 3 AND closing_time > '2008-08-29 19:25:50' AND detailed_auctions.number_of_lots > 0) [0m
+  [4;35;1mSQL (0.001573)[0m   [0mSELECT count(*) AS count_all, vintage AS vintage FROM `detailed_auctions` WHERE (status = 3 AND closing_time > '2008-08-29 19:25:50' AND detailed_auctions.number_of_lots > 0) GROUP BY vintage [0m
+Rendered auctions/_list_item_single_lot (0.00063)
+Rendered auctions/_list_item_single_lot (0.00048)
+  [4;36;1mPhoto Columns (0.000895)[0m   [0;1mSHOW FIELDS FROM `photos`[0m
+  [4;35;1mPhoto Load (0.000080)[0m   [0mSELECT * FROM `photos` WHERE (`photos`.`id` = 1) [0m
+Rendered auctions/_list_item_multi_lot_auction (0.00066)
+Rendered auctions/_list_item_single_lot (0.00050)
+Rendered auctions/_list_item_only_buy_now (0.00048)
+Rendered auctions/_list_item_single_lot (0.00054)
+Rendered auctions/_list_item_single_lot (0.00048)
+Rendered auctions/_list_item_single_lot (0.00048)
+Rendered auctions/_auction_list (0.03121)
+  [4;36;1mFeatureAuction Columns (0.001004)[0m   [0;1mSHOW FIELDS FROM `feature_auctions`[0m
+  [4;35;1mSQL (0.000073)[0m   [0mSELECT count(*) AS count_all FROM `feature_auctions` WHERE (`feature_auctions`.`status` = 3) [0m
+  [4;36;1mFeatureAuction Load (0.000099)[0m   [0;1mSELECT * FROM `feature_auctions` WHERE (`feature_auctions`.`status` = 3) [0m
+Rendered layouts/_menu (0.02150)
+Completed in 0.20010 (4 reqs/sec) | Rendering: 0.15425 (77%) | DB: 0.01548 (7%) | 200 OK [http://localhost/auctions]
+
+
+Processing AuctionsController#show (for 127.0.0.1 at 2008-08-29 19:25:57) [GET]
+  Session ID: 30c5f359daa4d9bea3553f1758388ace
+  Parameters: {"action"=>"show", "id"=>"223", "controller"=>"auctions"}
+  [4;35;1mPerson Columns (0.001342)[0m   [0mSHOW FIELDS FROM `people`[0m
+  [4;36;1mPerson Load (0.000103)[0m   [0;1mSELECT * FROM `people` WHERE (`people`.`id` = 18) LIMIT 1[0m
+  [4;35;1mAuction Columns (0.001255)[0m   [0mSHOW FIELDS FROM `auctions`[0m
+  [4;36;1mAuction Load (0.000090)[0m   [0;1mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+  [4;35;1mBid Load (0.000363)[0m   [0mSELECT * FROM `bids` WHERE (`bids`.`bidder_id` = 18 AND `bids`.`overwritten` = 0 AND `bids`.`auction_id` = 223) LIMIT 1[0m
+  [4;36;1mSale Columns (0.000819)[0m   [0;1mSHOW FIELDS FROM `sales`[0m
+WARNING: Can't mass-assign these protected attributes: is_buy_now
+  [4;35;1mBid Columns (0.000664)[0m   [0mSHOW FIELDS FROM `bids`[0m
+Rendering template within layouts/application
+Rendering auctions/show
+  [4;36;1mLot Load (0.000101)[0m   [0;1mSELECT * FROM `lots` WHERE (`lots`.auction_id = 223) LIMIT 1[0m
+  [4;35;1mLot Columns (0.001328)[0m   [0mSHOW FIELDS FROM `lots`[0m
+  [4;36;1mDetailedAuction Columns (0.001484)[0m   [0;1mSHOW FIELDS FROM `detailed_auctions`[0m
+  [4;35;1mDetailedAuction Load (0.000170)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;36;1mPerson Load (0.000275)[0m   [0;1mSELECT * FROM `people` WHERE (`people`.`id` = 11) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;35;1mSQL (0.000077)[0m   [0mSELECT count(*) AS count_all FROM `bids` WHERE (`bids`.auction_id = 223) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+Rendered auctions/_show_buy_now_and_auction (0.02952)
+  [4;36;1mSQL (0.000275)[0m   [0;1m SELECT SUM(number_of_lots) FROM sales
+ WHERE buyer_id = 18 AND auction_id = 223 AND is_buy_now = 1
+[0m
+  [4;35;1mSQL (0.000171)[0m   [0m SELECT *
+ FROM monitors
+ WHERE person_id = 18 AND auction_id = 223
+[0m
+Rendered auctions/_user_is_passive (0.00088)
+  [4;36;1mPhoto Columns (0.000882)[0m   [0;1mSHOW FIELDS FROM `photos`[0m
+  [4;35;1mSQL (0.000054)[0m   [0mSELECT count(*) AS count_all FROM `photos` WHERE (`photos`.lot_id = 261) [0m
+Rendered auctions/_view_photos (0.00935)
+  [4;36;1mFeedback Columns (0.000817)[0m   [0;1mSHOW FIELDS FROM `feedbacks`[0m
+  [4;35;1mSQL (0.000057)[0m   [0mSELECT count(*) AS count_all FROM `feedbacks` WHERE (`feedbacks`.`assessed_person_id` = 11) [0m
+  [4;36;1mWineType Columns (0.000590)[0m   [0;1mSHOW FIELDS FROM `wine_types`[0m
+  [4;35;1mWineType Load (0.000055)[0m   [0mSELECT * FROM `wine_types` WHERE (`wine_types`.`id` = 1) [0m
+  [4;36;1mRegion Columns (0.000641)[0m   [0;1mSHOW FIELDS FROM `regions`[0m
+  [4;35;1mRegion Load (0.000060)[0m   [0mSELECT * FROM `regions` WHERE (`regions`.`id` = 403) [0m
+  [4;36;1mJoin Table Columns (0.000556)[0m   [0;1mSHOW FIELDS FROM `grape_varieties_lots`[0m
+  [4;35;1mGrapeVariety Load (0.000056)[0m   [0mSELECT * FROM `grape_varieties` INNER JOIN `grape_varieties_lots` ON `grape_varieties`.id = `grape_varieties_lots`.grape_variety_id WHERE (`grape_varieties_lots`.lot_id = 261 ) [0m
+  [4;36;1mAddress Columns (0.000800)[0m   [0;1mSHOW FIELDS FROM `addresses`[0m
+  [4;35;1mAddress Load (0.000060)[0m   [0mSELECT * FROM `addresses` WHERE (`addresses`.`id` = 4) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `people` WHERE (`people`.`id` = 11) [0m
+  [4;36;1mFeatureAuction Columns (0.000900)[0m   [0;1mSHOW FIELDS FROM `feature_auctions`[0m
+  [4;35;1mSQL (0.000054)[0m   [0mSELECT count(*) AS count_all FROM `feature_auctions` WHERE (`feature_auctions`.`status` = 3) [0m
+  [4;36;1mFeatureAuction Load (0.000067)[0m   [0;1mSELECT * FROM `feature_auctions` WHERE (`feature_auctions`.`status` = 3) [0m
+Rendered layouts/_menu (0.02035)
+Completed in 0.22843 (4 reqs/sec) | Rendering: 0.15687 (68%) | DB: 0.01493 (6%) | 200 OK [http://localhost/auctions/show/223]
+
+
+Processing BidsController#confirm (for 127.0.0.1 at 2008-08-29 19:26:03) [GET]
+  Session ID: 30c5f359daa4d9bea3553f1758388ace
+  Parameters: {"commit"=>"Place Bid Now", "action"=>"confirm", "bid"=>{"number_of_lots"=>"1", "max_price_vatted"=>"12", "auction_id"=>"223"}, "controller"=>"bids"}
+  [4;35;1mPerson Columns (0.001262)[0m   [0mSHOW FIELDS FROM `people`[0m
+  [4;36;1mPerson Load (0.000077)[0m   [0;1mSELECT * FROM `people` WHERE (`people`.`id` = 18) LIMIT 1[0m
+  [4;35;1mBid Columns (0.000749)[0m   [0mSHOW FIELDS FROM `bids`[0m
+  [4;36;1mAuction Columns (0.001118)[0m   [0;1mSHOW FIELDS FROM `auctions`[0m
+  [4;35;1mAuction Load (0.000070)[0m   [0mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+  [4;36;1mDetailedAuction Columns (0.001450)[0m   [0;1mSHOW FIELDS FROM `detailed_auctions`[0m
+  [4;35;1mDetailedAuction Load (0.000077)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+  [4;35;1mPerson Load (0.000073)[0m   [0mSELECT * FROM `people` WHERE (`people`.`id` = 11) [0m
+  [4;36;1mAuction Load (0.000242)[0m   [0;1mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) FOR UPDATE[0m
+  [4;35;1mBid Load (0.000066)[0m   [0mSELECT * FROM `bids` WHERE (`bids`.`bidder_id` = 18 AND `bids`.`overwritten` = 0 AND `bids`.`auction_id` = 223) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering bids/confirm
+  [4;36;1mLot Load (0.000101)[0m   [0;1mSELECT * FROM `lots` WHERE (`lots`.auction_id = 223) LIMIT 1[0m
+  [4;35;1mLot Columns (0.001254)[0m   [0mSHOW FIELDS FROM `lots`[0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `people` WHERE (`people`.`id` = 11) [0m
+Rendered layouts/_menu (0.00082)
+Completed in 0.08999 (11 reqs/sec) | Rendering: 0.01782 (19%) | DB: 0.00722 (8%) | 200 OK [http://localhost/bids/confirm?bid%5Bmax_price_vatted%5D=12&bid%5Bnumber_of_lots%5D=1&bid%5Bauction_id%5D=223&commit=Place+Bid+Now]
+
+
+Processing BidsController#create (for 127.0.0.1 at 2008-08-29 19:26:06) [POST]
+  Session ID: 30c5f359daa4d9bea3553f1758388ace
+  Parameters: {"commit"=>"Yes, Place Bid", "authenticity_token"=>"7b0abe5d82b3f05be11c9c9d4ca5c383f9b1a6da", "action"=>"create", "bid"=>{"number_of_lots"=>"1", "max_price"=>"10.2127659574468", "auction_id"=>"223"}, "controller"=>"bids"}
+  [4;36;1mPerson Columns (0.001296)[0m   [0;1mSHOW FIELDS FROM `people`[0m
+  [4;35;1mPerson Load (0.000076)[0m   [0mSELECT * FROM `people` WHERE (`people`.`id` = 18) LIMIT 1[0m
+  [4;36;1mBid Columns (0.000792)[0m   [0;1mSHOW FIELDS FROM `bids`[0m
+  [4;35;1mAuction Columns (0.001142)[0m   [0mSHOW FIELDS FROM `auctions`[0m
+  [4;36;1mAuction Load (0.000074)[0m   [0;1mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+  [4;35;1mSQL (0.000046)[0m   [0mBEGIN[0m
+  [4;36;1mAuction Load (0.000208)[0m   [0;1mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) FOR UPDATE[0m
+  [4;35;1mBid Load (0.000075)[0m   [0mSELECT * FROM `bids` WHERE (`bids`.`bidder_id` = 18 AND `bids`.`overwritten` = 0 AND `bids`.`auction_id` = 223) LIMIT 1[0m
+  [4;36;1mBid Update (0.000190)[0m   [0;1mUPDATE `bids` SET overwritten = TRUE WHERE (`bids`.`bidder_id` = 18 AND `bids`.`auction_id` = 223) [0m
+  [4;35;1mBid Create (0.000196)[0m   [0mINSERT INTO `bids` (`created_at`, `number_of_lots`, `current_price`, `overwritten`, `current_number_of_lots`, `max_price`, `auction_id`, `bidder_id`) VALUES('2008-08-29 19:26:06', 1, NULL, 0, NULL, '10.2127659574468', 223, 18)[0m
+  [4;36;1mBid Load (0.000231)[0m   [0;1mSELECT * FROM `bids` WHERE (`bids`.auction_id = 223 AND (`bids`.`overwritten` = 0)) ORDER BY max_price DESC, created_at ASC, id[0m
+  [4;35;1mBid Update (0.000142)[0m   [0mUPDATE `bids` SET `current_number_of_lots` = 0 WHERE `id` = 21[0m
+  [4;36;1mAuction Update (0.000097)[0m   [0;1mUPDATE `auctions` SET `current_min_price` = '10.0' WHERE `id` = 223[0m
+  [4;35;1mSQL (0.040270)[0m   [0mCOMMIT[0m
+Redirected to http://localhost:3000/auctions/show/223
+Completed in 0.10434 (9 reqs/sec) | DB: 0.04507 (43%) | 302 Found [http://localhost/bids/create]
+
+
+Processing AuctionsController#show (for 127.0.0.1 at 2008-08-29 19:26:06) [GET]
+  Session ID: 30c5f359daa4d9bea3553f1758388ace
+  Parameters: {"action"=>"show", "id"=>"223", "controller"=>"auctions"}
+  [4;36;1mPerson Columns (0.001239)[0m   [0;1mSHOW FIELDS FROM `people`[0m
+  [4;35;1mPerson Load (0.000076)[0m   [0mSELECT * FROM `people` WHERE (`people`.`id` = 18) LIMIT 1[0m
+  [4;36;1mAuction Columns (0.001146)[0m   [0;1mSHOW FIELDS FROM `auctions`[0m
+  [4;35;1mAuction Load (0.000070)[0m   [0mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+  [4;36;1mBid Load (0.000341)[0m   [0;1mSELECT * FROM `bids` WHERE (`bids`.`bidder_id` = 18 AND `bids`.`overwritten` = 0 AND `bids`.`auction_id` = 223) LIMIT 1[0m
+  [4;35;1mSale Columns (0.000823)[0m   [0mSHOW FIELDS FROM `sales`[0m
+WARNING: Can't mass-assign these protected attributes: is_buy_now
+  [4;36;1mBid Columns (0.000649)[0m   [0;1mSHOW FIELDS FROM `bids`[0m
+Rendering template within layouts/application
+Rendering auctions/show
+  [4;35;1mLot Load (0.000108)[0m   [0mSELECT * FROM `lots` WHERE (`lots`.auction_id = 223) LIMIT 1[0m
+  [4;36;1mLot Columns (0.001340)[0m   [0;1mSHOW FIELDS FROM `lots`[0m
+  [4;35;1mDetailedAuction Columns (0.001715)[0m   [0mSHOW FIELDS FROM `detailed_auctions`[0m
+  [4;36;1mDetailedAuction Load (0.000100)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;35;1mPerson Load (0.000093)[0m   [0mSELECT * FROM `people` WHERE (`people`.`id` = 11) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;36;1mSQL (0.000368)[0m   [0;1mSELECT count(*) AS count_all FROM `bids` WHERE (`bids`.auction_id = 223) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+Rendered auctions/_show_buy_now_and_auction (0.08488)
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+Rendered auctions/_user_is_losing (0.00163)
+  [4;36;1mPhoto Columns (0.000925)[0m   [0;1mSHOW FIELDS FROM `photos`[0m
+  [4;35;1mSQL (0.000072)[0m   [0mSELECT count(*) AS count_all FROM `photos` WHERE (`photos`.lot_id = 261) [0m
+Rendered auctions/_view_photos (0.01046)
+  [4;36;1mFeedback Columns (0.000703)[0m   [0;1mSHOW FIELDS FROM `feedbacks`[0m
+  [4;35;1mSQL (0.000069)[0m   [0mSELECT count(*) AS count_all FROM `feedbacks` WHERE (`feedbacks`.`assessed_person_id` = 11) [0m
+  [4;36;1mWineType Columns (0.000553)[0m   [0;1mSHOW FIELDS FROM `wine_types`[0m
+  [4;35;1mWineType Load (0.000072)[0m   [0mSELECT * FROM `wine_types` WHERE (`wine_types`.`id` = 1) [0m
+  [4;36;1mRegion Columns (0.000609)[0m   [0;1mSHOW FIELDS FROM `regions`[0m
+  [4;35;1mRegion Load (0.000075)[0m   [0mSELECT * FROM `regions` WHERE (`regions`.`id` = 403) [0m
+  [4;36;1mJoin Table Columns (0.000553)[0m   [0;1mSHOW FIELDS FROM `grape_varieties_lots`[0m
+  [4;35;1mGrapeVariety Load (0.000073)[0m   [0mSELECT * FROM `grape_varieties` INNER JOIN `grape_varieties_lots` ON `grape_varieties`.id = `grape_varieties_lots`.grape_variety_id WHERE (`grape_varieties_lots`.lot_id = 261 ) [0m
+  [4;36;1mAddress Columns (0.000756)[0m   [0;1mSHOW FIELDS FROM `addresses`[0m
+  [4;35;1mAddress Load (0.000086)[0m   [0mSELECT * FROM `addresses` WHERE (`addresses`.`id` = 4) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `people` WHERE (`people`.`id` = 11) [0m
+  [4;36;1mFeatureAuction Columns (0.000885)[0m   [0;1mSHOW FIELDS FROM `feature_auctions`[0m
+  [4;35;1mSQL (0.000071)[0m   [0mSELECT count(*) AS count_all FROM `feature_auctions` WHERE (`feature_auctions`.`status` = 3) [0m
+  [4;36;1mFeatureAuction Load (0.000086)[0m   [0;1mSELECT * FROM `feature_auctions` WHERE (`feature_auctions`.`status` = 3) [0m
+Rendered layouts/_menu (0.01967)
+Completed in 0.22979 (4 reqs/sec) | Rendering: 0.15788 (68%) | DB: 0.01433 (6%) | 200 OK [http://localhost/auctions/show/223]
+DEPRECATION WARNING: config.action_view.cache_template_extensions option has been deprecated and has no affect. Please remove it from your config files.  See http://www.rubyonrails.org/deprecation for details. (called from send at /usr/lib/ruby/gems/1.8/gems/rails-2.1.0/lib/initializer.rb:455)
+
+
+Processing AuctionsController#show (for 127.0.0.1 at 2008-08-29 19:28:07) [GET]
+  Session ID: 30c5f359daa4d9bea3553f1758388ace
+  Parameters: {"action"=>"show", "id"=>"223", "controller"=>"auctions"}
+  [4;36;1mGlobalize::Language Columns (0.000871)[0m   [0;1mSHOW FIELDS FROM `globalize_languages`[0m
+  [4;35;1mGlobalize::Language Load (0.000065)[0m   [0mSELECT * FROM `globalize_languages` WHERE (`globalize_languages`.`rfc_3066` = 'en-GB') LIMIT 1[0m
+  [4;36;1mGlobalize::Language Load (0.000058)[0m   [0;1mSELECT * FROM `globalize_languages` WHERE (`globalize_languages`.`iso_639_1` = 'en') LIMIT 1[0m
+  [4;35;1mGlobalize::Country Columns (0.000686)[0m   [0mSHOW FIELDS FROM `globalize_countries`[0m
+  [4;36;1mGlobalize::Country Load (0.000057)[0m   [0;1mSELECT * FROM `globalize_countries` WHERE (`globalize_countries`.`code` = 'GB') LIMIT 1[0m
+  [4;35;1mPerson Columns (0.001168)[0m   [0mSHOW FIELDS FROM `people`[0m
+  [4;36;1mPerson Load (0.000075)[0m   [0;1mSELECT * FROM `people` WHERE (`people`.`id` = 18) LIMIT 1[0m
+  [4;35;1mAuction Columns (0.001078)[0m   [0mSHOW FIELDS FROM `auctions`[0m
+  [4;36;1mAuction Load (0.000070)[0m   [0;1mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+  [4;35;1mBid Load (0.000083)[0m   [0mSELECT * FROM `bids` WHERE (`bids`.`bidder_id` = 18 AND `bids`.`overwritten` = 0 AND `bids`.`auction_id` = 223) LIMIT 1[0m
+  [4;36;1mSale Columns (0.000837)[0m   [0;1mSHOW FIELDS FROM `sales`[0m
+WARNING: Can't mass-assign these protected attributes: is_buy_now
+  [4;35;1mBid Columns (0.000624)[0m   [0mSHOW FIELDS FROM `bids`[0m
+Rendering template within layouts/application
+Rendering auctions/show
+  [4;36;1mLot Load (0.000109)[0m   [0;1mSELECT * FROM `lots` WHERE (`lots`.auction_id = 223) LIMIT 1[0m
+  [4;35;1mLot Columns (0.001277)[0m   [0mSHOW FIELDS FROM `lots`[0m
+  [4;36;1mDetailedAuction Columns (0.001568)[0m   [0;1mSHOW FIELDS FROM `detailed_auctions`[0m
+  [4;35;1mDetailedAuction Load (0.000086)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;36;1mPerson Load (0.000081)[0m   [0;1mSELECT * FROM `people` WHERE (`people`.`id` = 11) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;35;1mSQL (0.000636)[0m   [0mSELECT count(*) AS count_all FROM `bids` WHERE (`bids`.auction_id = 223) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+Rendered auctions/_show_buy_now_and_auction (0.08263)
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+Rendered auctions/_user_is_losing (0.00227)
+  [4;35;1mPhoto Columns (0.000917)[0m   [0mSHOW FIELDS FROM `photos`[0m
+  [4;36;1mSQL (0.000054)[0m   [0;1mSELECT count(*) AS count_all FROM `photos` WHERE (`photos`.lot_id = 261) [0m
+Rendered auctions/_view_photos (0.06515)
+  [4;35;1mFeedback Columns (0.000658)[0m   [0mSHOW FIELDS FROM `feedbacks`[0m
+  [4;36;1mSQL (0.000052)[0m   [0;1mSELECT count(*) AS count_all FROM `feedbacks` WHERE (`feedbacks`.`assessed_person_id` = 11) [0m
+  [4;35;1mWineType Columns (0.000496)[0m   [0mSHOW FIELDS FROM `wine_types`[0m
+  [4;36;1mWineType Load (0.000053)[0m   [0;1mSELECT * FROM `wine_types` WHERE (`wine_types`.`id` = 1) [0m
+  [4;35;1mRegion Columns (0.000559)[0m   [0mSHOW FIELDS FROM `regions`[0m
+  [4;36;1mRegion Load (0.000059)[0m   [0;1mSELECT * FROM `regions` WHERE (`regions`.`id` = 403) [0m
+  [4;35;1mJoin Table Columns (0.000486)[0m   [0mSHOW FIELDS FROM `grape_varieties_lots`[0m
+  [4;36;1mGrapeVariety Load (0.000055)[0m   [0;1mSELECT * FROM `grape_varieties` INNER JOIN `grape_varieties_lots` ON `grape_varieties`.id = `grape_varieties_lots`.grape_variety_id WHERE (`grape_varieties_lots`.lot_id = 261 ) [0m
+  [4;35;1mAddress Columns (0.000738)[0m   [0mSHOW FIELDS FROM `addresses`[0m
+  [4;36;1mAddress Load (0.000060)[0m   [0;1mSELECT * FROM `addresses` WHERE (`addresses`.`id` = 4) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `people` WHERE (`people`.`id` = 11) [0m
+  [4;35;1mFeatureAuction Columns (0.000873)[0m   [0mSHOW FIELDS FROM `feature_auctions`[0m
+  [4;36;1mSQL (0.000063)[0m   [0;1mSELECT count(*) AS count_all FROM `feature_auctions` WHERE (`feature_auctions`.`status` = 3) [0m
+  [4;35;1mFeatureAuction Load (0.000079)[0m   [0mSELECT * FROM `feature_auctions` WHERE (`feature_auctions`.`status` = 3) [0m
+Rendered layouts/_menu (0.02216)
+Completed in 0.30823 (3 reqs/sec) | Rendering: 0.23230 (75%) | DB: 0.01564 (5%) | 200 OK [http://localhost/auctions/show/223]
+
+
+Processing BidsController#confirm (for 127.0.0.1 at 2008-08-29 19:28:13) [GET]
+  Session ID: 30c5f359daa4d9bea3553f1758388ace
+  Parameters: {"commit"=>"Place Bid Now", "action"=>"confirm", "bid"=>{"number_of_lots"=>"1", "max_price_vatted"=>"12", "auction_id"=>"223"}, "controller"=>"bids"}
+  [4;36;1mPerson Columns (0.001279)[0m   [0;1mSHOW FIELDS FROM `people`[0m
+  [4;35;1mPerson Load (0.000084)[0m   [0mSELECT * FROM `people` WHERE (`people`.`id` = 18) LIMIT 1[0m
+  [4;36;1mBid Columns (0.000804)[0m   [0;1mSHOW FIELDS FROM `bids`[0m
+  [4;35;1mAuction Columns (0.001168)[0m   [0mSHOW FIELDS FROM `auctions`[0m
+  [4;36;1mAuction Load (0.000091)[0m   [0;1mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+  [4;35;1mDetailedAuction Columns (0.001702)[0m   [0mSHOW FIELDS FROM `detailed_auctions`[0m
+  [4;36;1mDetailedAuction Load (0.000094)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+  [4;36;1mPerson Load (0.000091)[0m   [0;1mSELECT * FROM `people` WHERE (`people`.`id` = 11) [0m
+  [4;35;1mAuction Load (0.000288)[0m   [0mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) FOR UPDATE[0m
+  [4;36;1mBid Load (0.000090)[0m   [0;1mSELECT * FROM `bids` WHERE (`bids`.`bidder_id` = 18 AND `bids`.`overwritten` = 0 AND `bids`.`auction_id` = 223) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering bids/confirm
+  [4;35;1mLot Load (0.000130)[0m   [0mSELECT * FROM `lots` WHERE (`lots`.auction_id = 223) LIMIT 1[0m
+  [4;36;1mLot Columns (0.001327)[0m   [0;1mSHOW FIELDS FROM `lots`[0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `people` WHERE (`people`.`id` = 11) [0m
+Rendered layouts/_menu (0.00082)
+Completed in 0.09534 (10 reqs/sec) | Rendering: 0.02008 (21%) | DB: 0.00784 (8%) | 200 OK [http://localhost/bids/confirm?bid%5Bmax_price_vatted%5D=12&bid%5Bnumber_of_lots%5D=1&bid%5Bauction_id%5D=223&commit=Place+Bid+Now]
+
+
+Processing BidsController#create (for 127.0.0.1 at 2008-08-29 19:28:24) [POST]
+  Session ID: 30c5f359daa4d9bea3553f1758388ace
+  Parameters: {"commit"=>"Yes, Place Bid", "authenticity_token"=>"7b0abe5d82b3f05be11c9c9d4ca5c383f9b1a6da", "action"=>"create", "bid"=>{"number_of_lots"=>"1", "max_price"=>"10.2127659574468", "auction_id"=>"223"}, "controller"=>"bids"}
+  [4;35;1mPerson Columns (0.001305)[0m   [0mSHOW FIELDS FROM `people`[0m
+  [4;36;1mPerson Load (0.000076)[0m   [0;1mSELECT * FROM `people` WHERE (`people`.`id` = 18) LIMIT 1[0m
+  [4;35;1mBid Columns (0.000772)[0m   [0mSHOW FIELDS FROM `bids`[0m
+  [4;36;1mAuction Columns (0.001074)[0m   [0;1mSHOW FIELDS FROM `auctions`[0m
+  [4;35;1mAuction Load (0.000069)[0m   [0mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+  [4;36;1mSQL (0.000043)[0m   [0;1mBEGIN[0m
+  [4;35;1mAuction Load (0.000208)[0m   [0mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) FOR UPDATE[0m
+  [4;36;1mBid Load (0.000070)[0m   [0;1mSELECT * FROM `bids` WHERE (`bids`.`bidder_id` = 18 AND `bids`.`overwritten` = 0 AND `bids`.`auction_id` = 223) LIMIT 1[0m
+  [4;35;1mBid Update (0.000320)[0m   [0mUPDATE `bids` SET overwritten = TRUE WHERE (`bids`.`bidder_id` = 18 AND `bids`.`auction_id` = 223) [0m
+  [4;36;1mBid Create (0.000179)[0m   [0;1mINSERT INTO `bids` (`created_at`, `number_of_lots`, `current_price`, `overwritten`, `current_number_of_lots`, `max_price`, `auction_id`, `bidder_id`) VALUES('2008-08-29 19:28:24', 1, NULL, 0, NULL, '10.2127659574468', 223, 18)[0m
+  [4;35;1mBid Load (0.000244)[0m   [0mSELECT * FROM `bids` WHERE (`bids`.auction_id = 223 AND (`bids`.`overwritten` = 0)) ORDER BY max_price DESC, created_at ASC, id[0m
+  [4;36;1mBid Update (0.000136)[0m   [0;1mUPDATE `bids` SET `current_number_of_lots` = 0 WHERE `id` = 22[0m
+  [4;35;1mAuction Update (0.000102)[0m   [0mUPDATE `auctions` SET `current_min_price` = '10.0' WHERE `id` = 223[0m
+  [4;36;1mSQL (0.005422)[0m   [0;1mCOMMIT[0m
+Redirected to http://localhost:3000/auctions/show/223
+Completed in 0.06483 (15 reqs/sec) | DB: 0.01026 (15%) | 302 Found [http://localhost/bids/create]
+
+
+Processing AuctionsController#show (for 127.0.0.1 at 2008-08-29 19:28:25) [GET]
+  Session ID: 30c5f359daa4d9bea3553f1758388ace
+  Parameters: {"action"=>"show", "id"=>"223", "controller"=>"auctions"}
+  [4;35;1mPerson Columns (0.001296)[0m   [0mSHOW FIELDS FROM `people`[0m
+  [4;36;1mPerson Load (0.000102)[0m   [0;1mSELECT * FROM `people` WHERE (`people`.`id` = 18) LIMIT 1[0m
+  [4;35;1mAuction Columns (0.001153)[0m   [0mSHOW FIELDS FROM `auctions`[0m
+  [4;36;1mAuction Load (0.000097)[0m   [0;1mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+  [4;35;1mBid Load (0.000387)[0m   [0mSELECT * FROM `bids` WHERE (`bids`.`bidder_id` = 18 AND `bids`.`overwritten` = 0 AND `bids`.`auction_id` = 223) LIMIT 1[0m
+  [4;36;1mSale Columns (0.000816)[0m   [0;1mSHOW FIELDS FROM `sales`[0m
+WARNING: Can't mass-assign these protected attributes: is_buy_now
+  [4;35;1mBid Columns (0.000646)[0m   [0mSHOW FIELDS FROM `bids`[0m
+Rendering template within layouts/application
+Rendering auctions/show
+  [4;36;1mLot Load (0.000118)[0m   [0;1mSELECT * FROM `lots` WHERE (`lots`.auction_id = 223) LIMIT 1[0m
+  [4;35;1mLot Columns (0.001278)[0m   [0mSHOW FIELDS FROM `lots`[0m
+  [4;36;1mDetailedAuction Columns (0.001550)[0m   [0;1mSHOW FIELDS FROM `detailed_auctions`[0m
+  [4;35;1mDetailedAuction Load (0.000079)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;36;1mPerson Load (0.000076)[0m   [0;1mSELECT * FROM `people` WHERE (`people`.`id` = 11) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;35;1mSQL (0.000281)[0m   [0mSELECT count(*) AS count_all FROM `bids` WHERE (`bids`.auction_id = 223) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `detailed_auctions` WHERE (`detailed_auctions`.`id` = 223) [0m
+Rendered auctions/_show_buy_now_and_auction (0.03056)
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+Rendered auctions/_user_is_losing (0.00145)
+  [4;35;1mPhoto Columns (0.000842)[0m   [0mSHOW FIELDS FROM `photos`[0m
+  [4;36;1mSQL (0.000053)[0m   [0;1mSELECT count(*) AS count_all FROM `photos` WHERE (`photos`.lot_id = 261) [0m
+Rendered auctions/_view_photos (0.00888)
+  [4;35;1mFeedback Columns (0.000630)[0m   [0mSHOW FIELDS FROM `feedbacks`[0m
+  [4;36;1mSQL (0.000051)[0m   [0;1mSELECT count(*) AS count_all FROM `feedbacks` WHERE (`feedbacks`.`assessed_person_id` = 11) [0m
+  [4;35;1mWineType Columns (0.000488)[0m   [0mSHOW FIELDS FROM `wine_types`[0m
+  [4;36;1mWineType Load (0.000052)[0m   [0;1mSELECT * FROM `wine_types` WHERE (`wine_types`.`id` = 1) [0m
+  [4;35;1mRegion Columns (0.000546)[0m   [0mSHOW FIELDS FROM `regions`[0m
+  [4;36;1mRegion Load (0.000058)[0m   [0;1mSELECT * FROM `regions` WHERE (`regions`.`id` = 403) [0m
+  [4;35;1mJoin Table Columns (0.000469)[0m   [0mSHOW FIELDS FROM `grape_varieties_lots`[0m
+  [4;36;1mGrapeVariety Load (0.000053)[0m   [0;1mSELECT * FROM `grape_varieties` INNER JOIN `grape_varieties_lots` ON `grape_varieties`.id = `grape_varieties_lots`.grape_variety_id WHERE (`grape_varieties_lots`.lot_id = 261 ) [0m
+  [4;35;1mAddress Columns (0.000773)[0m   [0mSHOW FIELDS FROM `addresses`[0m
+  [4;36;1mAddress Load (0.000080)[0m   [0;1mSELECT * FROM `addresses` WHERE (`addresses`.`id` = 4) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `auctions` WHERE (`auctions`.`id` = 223) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `people` WHERE (`people`.`id` = 11) [0m
+  [4;35;1mFeatureAuction Columns (0.000953)[0m   [0mSHOW FIELDS FROM `feature_auctions`[0m
+  [4;36;1mSQL (0.000073)[0m   [0;1mSELECT count(*) AS count_all FROM `feature_auctions` WHERE (`feature_auctions`.`status` = 3) [0m
+  [4;35;1mFeatureAuction Load (0.000086)[0m   [0mSELECT * FROM `feature_auctions` WHERE (`feature_auctions`.`status` = 3) [0m
+Rendered layouts/_menu (0.06893)
+Completed in 0.27820 (3 reqs/sec) | Rendering: 0.15037 (54%) | DB: 0.01391 (5%) | 200 OK [http://localhost/auctions/show/223]
