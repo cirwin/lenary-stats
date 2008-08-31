@@ -1,0 +1,14 @@
+log/*
+log/*.log
+tmp/*
+tmp/**/*
+.DS_Store
+**/.DS_Store
+doc/**/*
+db/schema.rb
+db/schema.sql
+db/*.sqlite3
+config/database.yml
+vendor/**/**/doc/*
+vendor/rails
+routes.txt
