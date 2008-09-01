@@ -3,7 +3,9 @@ class CreateStats < ActiveRecord::Migration
     create_table :stats do |t|
       t.string :session_id, :limit => 32 # Session ID
       t.string :path # Requested Path
-      t.string :method # Requested Method, eg "AccountController#login"
+      t.string :method # Requested Method Type, eg GET
+      t.string :controller # Requested Controller
+      t.string :action # Requested Action
       t.string :params # Request Paramaters, stored as a hash
 
       t.string :for # IP Address
