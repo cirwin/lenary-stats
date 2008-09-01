@@ -21,7 +21,7 @@ namespace :log do
             params[:stack_trace] ||= ""
             params[:stack_trace] += line
           end
-        elsif line =~ /Processing ([^#]+)#([^ ]+) \(for ([^ ]+) at ([^\)]+)\) \[[^\]]+\]/
+        elsif line =~ /Processing ([^#]+)#([^ ]+) \(for ([^ ]+) at ([^\)]+)\) \[([^\]]+)\]/
           if params
             Stat(params).save!
             puts params.inspect
