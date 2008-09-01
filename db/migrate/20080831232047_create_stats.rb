@@ -1,7 +1,7 @@
 class CreateStats < ActiveRecord::Migration
   def self.up
     create_table :stats do |t|
-      t.string :session_id, :limit => 32 # Session ID
+      t.string :session_id # Session ID
       t.string :path # Requested Path
       t.string :method # Requested Method Type, eg GET
       t.string :controller # Requested Controller
