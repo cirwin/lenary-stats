@@ -7,6 +7,10 @@ class CreateStats < ActiveRecord::Migration
       t.string :controller # Requested Controller
       t.string :action # Requested Action
       t.string :params # Request Paramaters, stored as a hash
+      
+      t.string :error # Error Type eg Runtime
+	    t.string :exception_string # Exception thrown by app
+	    t.string :stack_trace # Trace to Line in app
 
       t.string :for # IP Address
       
@@ -17,10 +21,6 @@ class CreateStats < ActiveRecord::Migration
       t.integer :status # HTTP Response Code
       
       t.time :at # Request Time
-
-      t.string :error
-	  t.string :exception_string
-	  t.string :stack_trace
 
       t.timestamps # created_at and updated_at
     end
