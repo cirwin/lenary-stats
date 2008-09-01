@@ -18,6 +18,10 @@ class CreateStats < ActiveRecord::Migration
       
       t.time :at # Request Time
 
+      t.string :error
+	  t.string :exception_string
+	  t.string :stack_trace
+
       t.timestamps # created_at and updated_at
     end
   end
